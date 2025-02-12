@@ -1,5 +1,5 @@
 # Certificação de Bancos de Dados Relacionais - freeCodeCamp
-Bem-vindo ao repositório onde organizo meus estudos e projetos relacionados à Certificação de Bancos de Dados Relacionais da [freeCodeCamp](https://www.freecodecamp.org/portuguese/learn/relational-database/). Aqui, você encontrará todo o código, anotações e projetos que desenvolvi ao longo do curso.
+Bem-vindo ao repositório onde organizo meus estudos e projetos relacionados à Certificação de Bancos de Dados Relacionais da [freeCodeCamp](https://www.freecodecamp.org/portuguese/learn/relational-database/). Aqui, você encontrará todo o código, modelagem de dados, anotações e projetos que desenvolvi ao longo do curso.
 
 ## Índica
 1. [Estrutura do Curso](#estrutura-do-curso)
