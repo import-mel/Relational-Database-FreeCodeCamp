@@ -12,7 +12,7 @@ O curso foi projetado para ser executado em um ambiente de máquina virtual Linu
 
 1. **Aprenda Bash criando um boilerplate** - 170 lições
 2. [**Aprenda Bancos de Dados Relacionais criando um banco de dados do Mario**](https://www.notion.so/Aprenda-bancos-de-dados-relacionais-criando-um-banco-de-dados-sobre-Mario-1988c6cfcf5e80689bb9da453a25d4af?pvs=4) - 165 lições
-3. **Aprenda Bash Scripting desenvolvendo cinco programas** - 222 lições
+3. **Aprenda Bash Scripting desenvolvendo cinco programas** - 220 lições
 4. **Aprenda SQL criando um banco de dados de alunos: Parte 1** - 140 lições
 5. **Aprenda SQL criando um banco de dados de alunos: Parte 2** - 140 lições
 6. **Aprenda Bash avançado construindo um tradutor de Kitty Ipsum** - 140 lições
