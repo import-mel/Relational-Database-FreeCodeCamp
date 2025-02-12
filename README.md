@@ -25,11 +25,11 @@ O curso foi projetado para ser executado em um ambiente de máquina virtual Linu
 ## Projetos
 Este repositório inclui os seguintes projetos obrigatórios para a certificação:
 
-1. **Projeto 1:** Banco de dados de corpos celestiais
-2. **Projeto 2:** Banco de dados da Copa do Mundo
-3. **Projeto 3:** Agendador de compromissos do salão de beleza
-4. **Projeto 4:** Banco de dados da tabela periódica
-5. **Projeto 5:** Jogo de adivinhação de números
+1. **Banco de dados de corpos celestiais**
+2. **Banco de dados da Copa do Mundo**
+3. **Agendador de compromissos do salão de beleza**
+4. **Banco de dados da tabela periódica**
+5. **Jogo de adivinhação de números**
 
 ---
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
