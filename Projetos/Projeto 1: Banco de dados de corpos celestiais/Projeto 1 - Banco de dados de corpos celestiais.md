@@ -60,16 +60,19 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 
 ### Tabela `galaxy`
 
-| Coluna           | Tipo            | Restrições        | Descrição                                      |
-| ---------------- | --------------- | ----------------- | ---------------------------------------------- |
-| **`galaxy_id`**      | `SERIAL`        | `PRIMARY KEY`     | Identificador único da galáxia                 |
-| **`galaxy_name`**    | `VARCHAR(100)`  | `UNIQUE NOT NULL` | Nome da galáxia                                |
-| **`galaxy_type`**    | `TEXT`          | `NOT NULL`        | Tipo da galáxia (Espiral, Elíptica, Irregular) |
-| **`description`**    | `TEXT`          |                   | Breve descrição                                |
-| **`diameter_kly`**   | `NUMERIC(10,2)` | `NOT NULL`        | Diâmetro da galáxia em mil anos-luz            |
-| **`mass_solar`**     | `NUMERIC(15,2)` |                   | Massa da galáxia em relação ao Sol             |
-| **`age_billion`**    | `INT`           |                   | Idade da galáxia em bilhões de anos            |
-| **`discovery_year`** | `INT`           |                   | Ano da descoberta da galáxia                   |
+| Coluna                 | Tipo              | Restrições        | Descrição                                           |
+| ---------------------- | ----------------- | ----------------- | --------------------------------------------------- |
+| **`galaxy_id`**         | `SERIAL`          | `PRIMARY KEY`     | Identificador único da galáxia                      |
+| **`galaxy_name`**       | `VARCHAR(100)`    | `UNIQUE NOT NULL` | Nome da galáxia                                     |
+| **`galaxy_type`**       | `TEXT`            | `NOT NULL`        | Tipo da galáxia (Espiral, Elíptica, Irregular)      |
+| **`description_galaxy`**| `TEXT`            |                   | Descrição geral da galáxia                          |
+| **`distance_from_earth`**| `NUMERIC`         |                   | Distância da galáxia até a Terra                    |
+| **`diameter_kly`**      | `NUMERIC(10,2)`   | `NOT NULL`        | Diâmetro da galáxia em milhares de anos-luz         |
+| **`has_supernovae`**    | `BOOLEAN`         |                   | Indica se a galáxia já teve supernovas             |
+| **`has_nebula`**       | `BOOLEAN`         |                   | Indica se a galáxia contém nebulosas                |
+| **`mass_solar`**        | `NUMERIC(15,2)`   |                   | Massa da galáxia em relação ao Sol                  |
+| **`age_billion`**       | `INT`             |                   | Idade da galáxia em bilhões de anos                 |
+| **`discovery_year_galaxy`** | `INT`         |                   | Ano da descoberta da galáxia                        |
 
 ### Tabela `star`
 
@@ -95,13 +98,13 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 | **`star_id`**               | `INT`           | `FOREIGN KEY`     | Referência à estrela                                                       |
 | **`orbital_period_days`**   | `NUMERIC(10,2)` | `NOT NULL`        | Período orbital em dias                                                    |
 | **`is_exoplanet`**          | `BOOLEAN`       |                   | Indica se o planeta é um exoplaneta (está dentro ou fora do sistema solar) |
-| **`radius_km`**             | `NUMERIC(10,2)` | `NOT NULL`        | Raio do planeta em km                                                      |
+| **`radius_km`**             | `NUMERIC(12,2)` | `NOT NULL`        | Raio do planeta em km                                                      |
 | **`gravity_m_s2`**          | `NUMERIC(10,2)` |                   | Gravidade do planeta em m/s²                                               |
 | **`has_life`**              | `BOOLEAN`       | `NOT NULL`        | Indica se há evidência de vida                                             |
 | **`atmosphere`**            | `TEXT`          |                   | Composição da atmosfera                                                    |
 | **`surface_temperature_c`** | `NUMERIC(10,2)` |                   | Temperatura média da superfície em °C                                      |
 | **`discovery_year`**        | `INT`           |                   | Ano da descoberta do planeta                                               |
-| **`distance_from_star_km`** | `NUMERIC(10,2)` |                   | Distância da estrela do sistema em que o planeta se encontra               |
+| **`distance_from_star_km`** | `NUMERIC(12,2)` |                   | Distância da estrela do sistema em que o planeta se encontra               |
 
 ### Tabela `moon`
 | Coluna                        | Tipo            | Restrições        | Descrição                                       |
@@ -112,7 +115,7 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 | **`radius_km`**               | `NUMERIC(10,2)` | `NOT NULL`        | Raio da lua em km                               |
 | **`orbital_period_days`**     | `NUMERIC(10,2)` | `NOT NULL`        | Período orbital em dias                         |
 | **`tidally_locked`**          | `BOOLEAN`       | `NOT NULL`        | Indica se a lua está travada gravitacionalmente |
-| **`composition`**             | `TEXT`          |                   | Composição da lua                               |
+| **`composition_moon`**             | `TEXT`          |                   | Composição da lua                               |
 | **`distance_from_planet_km`** | `NUMERIC(10,2)` |                   | Distância média da lua ao planeta               |
 
 ### Tabela `nebula`
@@ -120,15 +123,15 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 | Coluna               | Tipo            | Restrições    | Descrição                                                                |
 | -------------------- | --------------- | ------------- | ------------------------------------------------------------------------ |
 | **`nebula_id`**      | `SERIAL`        | `PRIMARY KEY` | Identificador único da nebulosa.                                         |
-| **`nebula_name`**    | `VARCHAR(100)`  | `NOT NULL`    | Nome da nebulosa (ex: "Nebulosa de Órion", "Nebulosa do Caranguejo").    |
+| **`nebula_name`**    | `VARCHAR(100)`  | `UNIQUE` `NOT NULL`    | Nome da nebulosa (ex: "Nebulosa de Órion", "Nebulosa do Caranguejo").    |
 | **`nebula_type`**    | `VARCHAR(50)`   | `NOT NULL`    | Tipo da nebulosa (ex: "Emissão", "Reflexão", "Escuridão", "Planetária"). |
 | **`galaxy_id`**      | `INT`           | `FOREIGN KEY` | Referência à galáxia onde a nebulosa está localizada.                    |
 | **`diameter_ly`**    | `NUMERIC(10,2)` | `NOT NULL`    | Diâmetro da nebulosa, medido em anos-luz.                                |
 | **`distance_ly`**    | `NUMERIC(10,2)` | `NOT NULL`    | Distância da nebulosa em relação à Terra, em anos-luz.                   |
 | **`luminosity`**     | `NUMERIC(15,2)` |               | Luminosidade da nebulosa, medida em relação ao Sol.                      |
-| **`composition`**    | `TEXT`          |               | Composição da nebulosa (ex: "Hidrogênio, hélio, poeira interestelar").   |
+| **`composition_nebula`**    | `TEXT`          |               | Composição da nebulosa (ex: "Hidrogênio, hélio, poeira interestelar").   |
 | **`discovery_year`** | `INT`           |               | Ano em que a nebulosa foi descoberta.                                    |
-| **`location`**       | `TEXT`          |               | Localização da nebulosa (ex: "Constelação de Órion", "Braço de Órion").  |
+| **`location_nebula`**       | `TEXT`          |               | Localização da nebulosa (ex: "Constelação de Órion", "Braço de Órion").  |
 | **`photo_url`**      | `TEXT`          |               | URL de uma foto ou imagem associada à nebulosa.                          |
 
 
@@ -137,11 +140,11 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 | Coluna                    | Tipo            | Restrições    | Descrição                                                 |
 | ------------------------- | --------------- | ------------- | --------------------------------------------------------- |
 | **`mission_id`**          | `SERIAL`        | `PRIMARY KEY` | Identificador único da missão.                            |
-| **`mission_name`**        | `VARCHAR(100)`  | `NOT NULL`    | Nome da missão (ex: "Mars 2020", "Voyager 2").            |
+| **`mission_name`**        | `VARCHAR(100)`  | `UNIQUE` `NOT NULL`    | Nome da missão (ex: "Mars 2020", "Voyager 2").            |
 | **`mission_type`**        | `VARCHAR(100)`  | `NOT NULL`    | tipo de missão (exploração, mapeamento, observação, etc.) |
 | **`agency`**              | `VARCHAR(100)`  | `NOT NULL`    | Agência responsável pela missão (ex: "NASA", "ESA").      |
 | **`launch_date`**         | `DATE`          | `NOT NULL`    | Data de lançamento da missão.                             |
-| **`budget`**              | `NUMERIC(15,2)` |               | Orçamento total da missão.                                |
+| **`budget`**              | `NUMERIC(15,2)` |               | Orçamento total da missão (USD).                                |
 | **`description_mission`** | `TEXT`          |               | Descrição geral da missão e seus objetivos.               |
 
 ### Tabela junção `planet_mission`

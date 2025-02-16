@@ -4,9 +4,10 @@ CREATE DATABASE universe;
 
 \c universe;
 
+-- CRIANDO AS TABELAS
 CREATE TABLE galaxy(
     galaxy_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    galaxy_name VARCHAR(100) UNIQUE NOT NULL,
     galaxy_type TEXT NOT NULL,
     description_galaxy TEXT,
     distance_from_earth NUMERIC,
@@ -21,7 +22,7 @@ CREATE TABLE galaxy(
 CREATE TABLE star(
     star_id SERIAL PRIMARY KEY,
     galaxy_id INT NOT NULL,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    star_name VARCHAR(100) UNIQUE NOT NULL,
     star_type TEXT NOT NULL,
     spectral_type VARCHAR(10) NOT NULL,
     temperature_k NUMERIC(10, 2) NOT NULL,
@@ -35,7 +36,7 @@ CREATE TABLE star(
 CREATE TABLE planet(
     planet_id SERIAL PRIMARY KEY,
     star_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    planet_name VARCHAR(100) NOT NULL UNIQUE,
     orbital_period_days NUMERIC(10, 2) NOT NULL,
     is_exoplanet BOOLEAN,
     radius_km NUMERIC(12, 2) NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE planet(
 
 CREATE TABLE moon(
     moon_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    moon_name VARCHAR(100) NOT NULL UNIQUE,
     planet_id INT NOT NULL,
     radius_km NUMERIC(10, 2) NOT NULL,
     orbital_period_days NUMERIC(10, 2) NOT NULL,
@@ -63,7 +64,7 @@ CREATE TABLE moon(
 CREATE TABLE nebula(
     nebula_id SERIAL PRIMARY KEY,
     galaxy_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    nebula_name VARCHAR(100) NOT NULL UNIQUE,
     nebula_type VARCHAR(50) NOT NULL,
     diameter_ly NUMERIC(10,2) NOT NULL,
     distance_ly NUMERIC(10,2) NOT NULL,
@@ -77,7 +78,7 @@ CREATE TABLE nebula(
 
 CREATE TABLE mission(
     mission_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    mission_name VARCHAR(100) UNIQUE NOT NULL,
     mission_type VARCHAR(100) NOT NULL,
     agency VARCHAR(100) NOT NULL,
     launch_date DATE NOT NULL,
@@ -89,7 +90,6 @@ CREATE TABLE planet_mission(
     planet_mission_id SERIAL PRIMARY KEY,
     planet_id INT NOT NULL,
     mission_id INT NOT NULL,
-    name VARCHAR(100) UNIQUE NOT NULL,
     mission_status VARCHAR(50) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE,
@@ -98,6 +98,7 @@ CREATE TABLE planet_mission(
     CONSTRAINT fk_planet_mission_mission_id FOREIGN KEY (mission_id) REFERENCES mission(mission_id)
 );
 
+-- ADICIONANDO OS DADOS NAS TABELAS
 INSERT INTO galaxy (name, galaxy_type, description_galaxy, distance_from_earth, diameter_kly, has_supernovae, has_nebula, mass_solar_galaxy, age_billion, discovery_year_galaxy) VALUES
 ('Via Láctea', 'Espiral', 'Nossa galáxia, contendo o Sistema Solar.', 0, 100.00, TRUE, TRUE, 1500000.00, 13, 0),
 ('Andrômeda (M31)', 'Espiral', 'Galáxia mais próxima da Via Láctea, em rota de colisão.', 2537, 220.00, TRUE, TRUE, 1200000.00, 10, 964),
@@ -242,46 +243,63 @@ INSERT INTO nebula (galaxy_id, name, nebula_type, diameter_ly, distance_ly, lumi
 (19, 'Nebulosa de IC 1318', 'Emissão', 10.00, 3500.00, 75000.00, 'Hidrogênio, Oxigênio', 1905, 'Constelação de Cisne', 'https://spacetoday.com.br/wp-content/uploads/2021/03/nebulosa_borboleta_ic1318-scaled.jpg'),
 (20, 'Nebulosa de Sharpless 2-106', 'Emissão', 9.00, 4200.00, 200000.00, 'Hidrogênio', 1950, 'Constelação de Lira', 'https://svs.gsfc.nasa.gov/vis/a030000/a030600/a030682/s106-example_frame-1920x1080.jpg');
 
-INSERT INTO mission (name, mission_type, agency, launch_date, budget, description_mission) VALUES
-('Mars Exploration Rover', 'Exploração Planetária', 'NASA', '2003-06-10', 800000000.00, 'Missão de exploração em Marte, focada na busca de sinais de água no passado e estudo da geologia do planeta.'),
-('Apollo 11', 'Exploração Lunar', 'NASA', '1969-07-16', 500000000.00, 'Missão que levou o homem à Lua pela primeira vez.'),
-('Juno', 'Exploração Planetária', 'NASA', '2011-08-05', 1100000000.00, 'Missão para estudar Júpiter e sua atmosfera.'),
-('Voyager 1', 'Exploração Espacial', 'NASA', '1977-09-05', 250000000.00, 'Missão de exploração interplanetária para estudar os planetas exteriores e agora em direção à borda do Sistema Solar.'),
-('New Horizons', 'Exploração Planetária', 'NASA', '2006-01-19', 700000000.00, 'Missão para estudar Plutão e os objetos no cinturão de Kuiper.'),
-('Curiosity', 'Exploração Planetária', 'NASA', '2011-11-26', 2500000000.00, 'Missão de exploração em Marte para estudar sua geologia, clima e procurar sinais de vida passada.'),
-('ExoMars', 'Exploração Planetária', 'ESA/Roscosmos', '2016-03-14', 1700000000.00, 'Missão de busca por sinais de vida em Marte.'),
-('Hubble Space Telescope', 'Observação Espacial', 'NASA/ESA', '1990-04-24', 25000000000.00, 'Telescópio espacial para observar o universo em várias frequências de luz.'),
-('Rosetta', 'Exploração Cometa', 'ESA', '2004-03-02', 1400000000.00, 'Missão que estudou o cometa 67P/Churyumov–Gerasimenko e fez o pouso do Philae.'),
-('James Webb Space Telescope', 'Observação Espacial', 'NASA/ESA/CSA', '2021-12-25', 10000000000.00, 'Telescópio espacial para observar o universo em infravermelho.'),
-('Lunar Reconnaissance Orbiter', 'Exploração Lunar', 'NASA', '2009-06-18', 500000000.00, 'Missão para mapear a superfície lunar e estudar sua composição.'),
-('Kepler', 'Busca por Exoplanetas', 'NASA', '2009-03-07', 600000000.00, 'Missão para encontrar exoplanetas orbitando estrelas em nossa galáxia.'),
-('Cassini-Huygens', 'Exploração Planetária', 'NASA/ESA/ASI', '1997-10-15', 3000000000.00, 'Missão para estudar Saturno e suas luas.'),
-('Parker Solar Probe', 'Exploração Solar', 'NASA', '2018-08-12', 1250000000.00, 'Missão para estudar o Sol mais de perto do que qualquer outra missão anterior.'),
-('Chandrayaan-2', 'Exploração Lunar', 'ISRO', '2019-07-22', 140000000.00, 'Missão da Índia para estudar a Lua, incluindo seu polo sul.'),
-('Maven', 'Exploração Planetária', 'NASA', '2013-11-18', 650000000.00, 'Missão para estudar a atmosfera de Marte e seu clima.'),
-('TESS', 'Busca por Exoplanetas', 'NASA', '2018-04-18', 200000000.00, 'Missão para identificar exoplanetas próximos e em zonas habitáveis.'),
-('Venera 7', 'Exploração Planetária', 'Soviet Union', '1970-08-17', 85000000.00, 'Primeira sonda a transmitir dados da superfície de Vênus.'),
-('OSIRIS-REx', 'Exploração Planetária', 'NASA', '2016-09-08', 800000000.00, 'Missão para coletar amostras de um asteroide e trazê-las de volta à Terra.'),
-('Mars Odyssey', 'Exploração Planetária', 'NASA', '2001-04-07', 297000000.00, 'Missão para estudar Marte e atuar como um satélite de comunicação para outras missões.'); 
+INSERT INTO mission (mission_name, mission_type, agency, launch_date, budget, description_mission) VALUES
+('Curiosity', 'Exploração Planetária', 'NASA', '2011-11-26', 2500000000.00, 'Missão para explorar a superfície de Marte, investigando a geologia e o clima, além de procurar sinais de vida passada.'),
+('Perseverance', 'Exploração Planetária', 'NASA', '2020-07-30', 2930000000.00, 'Missão para explorar Marte, com foco na coleta de amostras e busca por sinais de vida microbiana antiga.'),
+('New Horizons', 'Exploração Planetária', 'NASA', '2006-01-19', 700000000.00, 'Missão que sobrevoou Plutão e suas luas, enviando imagens e dados para a Terra, além de explorar o cinturão de Kuiper.'),
+('Juno', 'Exploração Planetária', 'NASA', '2011-08-05', 1100000000.00, 'Missão para estudar Júpiter, com foco na composição, clima e campos magnéticos.'),
+('Voyager 1', 'Exploração Espacial', 'NASA', '1977-09-05', 250000000.00, 'Missão para estudar os planetas exteriores e que agora segue em direção ao espaço interestelar.'),
+('Cassini-Huygens', 'Exploração Planetária', 'NASA, ESA', '1997-10-15', 3700000000.00, 'Missão para estudar Saturno e suas luas, incluindo o pouso da sonda Huygens em Titã, a maior lua de Saturno.'),
+('Mars Odyssey', 'Exploração Planetária', 'NASA', '2001-04-07', 297000000.00, 'Missão em órbita de Marte, com objetivo de estudar a superfície, clima e buscar sinais de água.'),
+('InSight', 'Exploração Planetária', 'NASA', '2018-05-05', 850000000.00, 'Missão para estudar o interior de Marte, incluindo a medição de abalos sísmicos e o mapeamento de calor no subsolo.'),
+('Hubble Space Telescope', 'Observação Espacial', 'NASA, ESA', '1990-04-24', 20000000000.00, 'Telescópio espacial para observar galáxias, estrelas e outros objetos celestes em alta definição.'),
+('James Webb Space Telescope', 'Observação Espacial', 'NASA, ESA, CSA', '2021-12-25', 10000000000.00, 'Telescópio espacial para observar as primeiras galáxias formadas após o Big Bang e estudar atmosferas de exoplanetas.'),
+('Mars Science Laboratory', 'Exploração Planetária', 'NASA', '2011-11-26', 2500000000.00, 'Missão para estudar Marte com o rover Curiosity e enviar dados sobre a geologia e clima de Marte.'),
+('Change 5', 'Exploração Lunar', 'CNSA', '2020-11-23', 1800000000.00, 'Missão da China para coletar amostras da Lua e trazer de volta à Terra.'),
+('Rosetta', 'Exploração de Cometas', 'ESA', '2004-03-02', 1300000000.00, 'Missão para estudar o cometa 67P/Churyumov-Gerasimenko e realizar o pouso da sonda Philae.'),
+('Kepler', 'Pesquisa de Exoplanetas', 'NASA', '2009-03-06', 600000000.00, 'Missão para identificar exoplanetas e estudar a diversidade de planetas ao redor de outras estrelas.'),
+('OSIRIS-REx', 'Exploração Planetária', 'NASA', '2016-09-08', 800000000.00, 'Missão para coletar amostras do asteroide Bennu e trazer para a Terra para estudo.'),
+('ExoMars Trace Gas Orbiter', 'Exploração Planetária', 'ESA, Roscosmos', '2016-03-14', 1500000000.00, 'Missão para estudar a atmosfera de Marte, buscando sinais de metano e outros gases que podem indicar atividade biológica ou geológica.'),
+('TESS', 'Pesquisa de Exoplanetas', 'NASA', '2018-04-18', 337000000.00, 'Missão para pesquisar exoplanetas ao redor de estrelas próximas e identificar aqueles que podem ser habitáveis.'),
+('Lunar Reconnaissance Orbiter', 'Exploração Lunar', 'NASA', '2009-06-18', 490000000.00, 'Missão para mapear a superfície da Lua e buscar locais adequados para futuros pousos humanos.'),
+('Chandra X-ray Observatory', 'Observação Espacial', 'NASA', '1999-07-23', 1400000000.00, 'Observatório espacial de raios-X para estudar buracos negros, estrelas de nêutrons e outras fontes de radiação no espaço.'),
+('Spitzer Space Telescope', 'Observação Espacial', 'NASA', '2003-08-25', 650000000.00, 'Observatório espacial de infravermelho para estudar as estrelas, galáxias e a formação de planetas.'),
+('Parker Solar Probe', 'Exploração Solar', 'NASA', '2018-08-12', 1500000000.00, 'Missão para estudar o Sol mais de perto e entender melhor a sua atmosfera e o comportamento do vento solar.'),
+('Dawn', 'Exploração Planetária', 'NASA', '2007-09-27', 470000000.00, 'Missão para estudar o asteroide Vesta e o planeta anão Ceres, os dois maiores corpos do cinturão de asteroides.'),
+('Voyager 2', 'Exploração Espacial', 'NASA', '1977-08-20', 250000000.00, 'Missão para estudar os planetas exteriores e atualmente em direção ao espaço interestelar.'),
+('Sofia', 'Observação Espacial', 'NASA, DLR', '2010-04-26', 1000000000.00, 'Observatório espacial de infravermelho montado em um avião para estudar a formação estelar e a estrutura do universo.'),
+('Ariel', 'Pesquisa de Exoplanetas', 'ESA', '2029-04-01', 700000000.00, 'Missão para estudar exoplanetas e suas atmosferas, ajudando a entender a formação e evolução planetária.'),
+('Herschel', 'Observação Espacial', 'ESA', '2009-05-14', 1200000000.00, 'Telescópio espacial para estudar a formação de estrelas e galáxias no infravermelho.'),
+('BepiColombo', 'Exploração Planetária', 'ESA, JAXA', '2018-10-20', 1700000000.00, 'Missão para estudar Mercúrio, incluindo seu campo magnético e composição.'),
+('LISA Pathfinder', 'Observação Espacial', 'ESA', '2015-12-03', 380000000.00, 'Missão para testar a tecnologia de observação de ondas gravitacionais.'),
+('Insight', 'Exploração Planetária', 'NASA', '2018-05-05', 850000000.00, 'Missão para estudar o interior de Marte e suas características geológicas.'),
+('Hayabusa2', 'Exploração Planetária', 'JAXA', '2014-12-03', 1500000000.00, 'Missão para coletar amostras do asteroide Ryugu e trazê-las para a Terra.'),
+('Tianwen-1', 'Exploração Planetária', 'CNSA', '2020-07-23', 1000000000.00, 'Missão da China para explorar Marte, incluindo a sonda Zhurong e a realização de várias análises geológicas.'),
+('Apollo 11', 'Exploração Lunar', 'NASA', '1969-07-16', 500000000.00, 'Missão que levou o homem à Lua pela primeira vez.');
 
-INSERT INTO planet_mission (planet_id, mission_id, name, mission_status, start_date, end_date, results) VALUES
-(4, 1, 'Mars Rover Spirit', 'Concluída', '2004-01-04', '2010-03-22', 'Explorou a superfície de Marte e enviou imagens e dados sobre a composição do solo.'),
-(4, 2, 'Apollo 11 Moon Landing', 'Concluída', '1969-07-16', '1969-07-24', 'Primeira missão humana a pousar na Lua e coletar amostras.'),
-(5, 3, 'Juno Mission to Jupiter', 'Ativa', '2011-08-05', NULL, 'Estudando Júpiter e suas atmosferas para entender melhor o sistema solar.'),
-(5, 4, 'Voyager 1 Interstellar Mission', 'Ativa', '1977-09-05', NULL, 'Enviando dados sobre o espaço interestelar além de nosso sistema solar.'),
-(4, 5, 'Mars Curiosity Rover', 'Ativa', '2011-08-05', NULL, 'Investigando a geologia e atmosfera de Marte e a possibilidade de vida passada.'),
-(4, 6, 'Mars Exploration Rover Opportunity', 'Concluída', '2003-07-07', '2018-02-13', 'Fez importantes descobertas sobre o clima e a geologia de Marte.'),
-(5, 7, 'ExoMars Trace Gas Orbiter', 'Ativa', '2016-03-14', NULL, 'Investigando gases atmosféricos e buscando sinais de vida em Marte.'),
-(6, 8, 'Hubble Space Telescope', 'Ativa', '1990-04-24', NULL, 'Captura imagens detalhadas do universo e ajuda a expandir o conhecimento sobre os planetas e estrelas.'),
-(5, 9, 'Rosetta Mission', 'Concluída', '2004-03-02', '2016-09-30', 'Primeira missão a pousar em um cometa, estudando sua composição.'),
-(5, 10, 'James Webb Space Telescope', 'Em Preparação', '2021-12-25', NULL, 'Telescópio para observar o universo em infravermelho.'),
-(4, 11, 'Lunar Reconnaissance Orbiter', 'Ativa', '2009-06-18', NULL, 'Mapeamento da superfície lunar para futuras missões.'),
-(4, 12, 'Kepler Mission', 'Concluída', '2009-03-07', '2018-10-30', 'Descobriu milhares de exoplanetas orbitando outras estrelas.'),
-(5, 13, 'Cassini-Huygens', 'Concluída', '1997-10-15', '2017-09-15', 'Estudo profundo de Saturno e suas luas, incluindo Titã e Enceladus.'),
-(6, 14, 'Parker Solar Probe', 'Ativa', '2018-08-12', NULL, 'Estudando o Sol mais de perto do que qualquer outra missão anterior.'),
-(4, 15, 'Chandrayaan-2', 'Ativa', '2019-07-22', NULL, 'Missão indiana para explorar a Lua e estudar o polo sul lunar.'),
-(4, 16, 'Maven Mars Mission', 'Ativa', '2013-11-18', NULL, 'Estudo da atmosfera de Marte e suas condições climáticas.'),
-(5, 17, 'TESS Mission', 'Ativa', '2018-04-18', NULL, 'Buscando exoplanetas em zonas habitáveis.'),
-(4, 18, 'Venera 7 Venus Mission', 'Concluída', '1970-08-17', '1970-12-16', 'Primeira missão a transmitir dados da superfície de Vênus.'),
-(4, 19, 'OSIRIS-REx Mission', 'Ativa', '2016-09-08', NULL, 'Coleta de amostras do asteroide Bennu e retorno à Terra.'),
-(4, 20, 'Mars Odyssey', 'Ativa', '2001-04-07', NULL, 'Satélite de Marte, ajudando em várias missões de exploração e análise de Marte.');
+INSERT INTO planet_mission (planet_id, mission_id, mission_status, start_date, end_date, results) VALUES
+(4, 1, 'Em andamento', '2011-11-26', NULL, 'Exploração da superfície de Marte com o rover Curiosity.'),
+(4, 2, 'Em andamento', '2020-07-30', NULL, 'Exploração de Marte com o rover Perseverance, coleta de amostras e análise do solo.'),
+(9, 3, 'Concluída', '2006-01-19', '2019-12-31', 'Sobrevoo de Plutão, enviando imagens detalhadas e dados sobre a geologia e atmosfera de Plutão.'),
+(5, 4, 'Em andamento', '2011-08-05', NULL, 'Estudo de Júpiter, incluindo seus campos magnéticos e atmosfera pela missão Juno.'),
+(9, 5, 'Em andamento', '1977-09-05', NULL, 'Estudo dos planetas exteriores, atualmente no espaço interestelar.'),
+(6, 6, 'Concluída', '1997-10-15', '2017-09-15', 'Estudo de Saturno, seus anéis e luas, incluindo pouso da sonda Huygens em Titã.'),
+(4, 7, 'Em andamento', '2001-04-07', NULL, 'Exploração orbital de Marte para estudar clima, geologia e procurar sinais de água.'),
+(4, 8, 'Em andamento', '2018-05-05', NULL, 'Estudo do interior de Marte, incluindo medições sísmicas e mapeamento de calor.'),
+(10, 9, 'Em andamento', '1990-04-24', NULL, 'Observação de galáxias, estrelas e outros objetos celestes através do Telescópio Hubble.'),
+(11, 10, 'Em andamento', '2021-12-25', NULL, 'Exploração do universo primitivo, observação de exoplanetas e galáxias distantes com o Telescópio James Webb.'),
+(4, 11, 'Concluída', '2011-11-26', '2018-02-03', 'Estudo da superfície de Marte com o rover Curiosity, buscando sinais de vida antiga.'),
+(6, 12, 'Concluída', '2004-03-02', '2016-09-30', 'Estudo do cometa 67P, com pouso da sonda Philae.'),
+(4, 13, 'Em andamento', '2009-03-06', NULL, 'Missão Kepler para a descoberta de exoplanetas ao redor de outras estrelas.'),
+(8, 14, 'Em andamento', '2016-09-08', NULL, 'Coleta de amostras do asteroide Bennu pela missão OSIRIS-REx.'),
+(4, 15, 'Em andamento', '2016-03-14', NULL, 'Análise da atmosfera de Marte, focando em metano e sinais de atividade biológica ou geológica.'),
+(10, 16, 'Em andamento', '2018-04-18', NULL, 'Busca por exoplanetas na zona habitável de outras estrelas com a missão TESS.'),
+(6, 17, 'Em andamento', '1999-07-23', NULL, 'Estudo de raios-X de estrelas de nêutrons, buracos negros e outras fontes no espaço com o telescópio Chandra.'),
+(10, 18, 'Em andamento', '2003-08-25', NULL, 'Observações de infravermelho de estrelas e galáxias distantes pelo Spitzer Space Telescope.'),
+(5, 19, 'Em andamento', '2018-08-12', NULL, 'Estudo da atmosfera solar com a Parker Solar Probe.'),
+(9, 20, 'Concluída', '2007-09-27', '2018-11-03', 'Estudo dos asteroides Vesta e Ceres pelo Dawn.'),
+(10, 21, 'Em andamento', '1977-08-20', NULL, 'Missão Voyager 2, atualmente no espaço interestelar.'),
+(10, 22, 'Em andamento', '2010-04-26', NULL, 'Observações infravermelhas com o SOFIA para estudar a formação de estrelas.'),
+(13, 23, 'Em andamento', '2029-04-01', NULL, 'Estudo de exoplanetas com atmosferas usando o telescópio Ariel.'),
+(10, 24, 'Concluída', '2009-05-14', '2013-03-29', 'Observação de formação estelar com o Herschel Space Telescope.'),
+(3, 25, 'Em andamento', '2018-10-20', NULL, 'Estudo de Mercúrio pela missão BepiColombo.');
