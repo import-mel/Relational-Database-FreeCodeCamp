@@ -195,14 +195,16 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 Clone o repositório para a sua máquina local usando o Git. No terminal, execute:
 
 ```bash
-git clone https://github.com/seu-usuario/universe-database.git
+git clone https://github.com/import-mel/Relational-Database-FreeCodeCamp.git
 ```
 
 Acesse o diretório do projeto:
 
 ```bash
-cd universe-database
+cd /caminho/para/o/projeto
 ```
+Substitua `/caminho/para/o/projeto` pelo caminho completo onde o projeto está localizado.
+
 
 ### 3. Criando o Banco de Dados
 
