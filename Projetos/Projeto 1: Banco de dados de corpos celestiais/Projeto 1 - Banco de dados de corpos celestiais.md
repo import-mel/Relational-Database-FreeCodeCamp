@@ -224,7 +224,7 @@ Substitua `seu_usuario` pelo nome de usuário do PostgreSQL.
 CREATE DATABASE universe;
 ```
 
-1. Conecte-se ao banco de dados `universe`:
+3. Conecte-se ao banco de dados `universe`:
 
 ```sql
 \c universe
@@ -234,7 +234,7 @@ CREATE DATABASE universe;
 
 Agora que você está conectado ao banco de dados `universe`, execute o script SQL para criar a estrutura do banco de dados (tabelas, restrições, etc.).
 
-2. Para rodar o script `universe.sql` que cria as tabelas e configura os relacionamentos, execute o seguinte comando no terminal do `psql`:
+1. Para rodar o script `universe.sql` que cria as tabelas e configura os relacionamentos, execute o seguinte comando no terminal do `psql`:
 
 ```sql
 \i /caminho/para/o/arquivo/universe.sql
