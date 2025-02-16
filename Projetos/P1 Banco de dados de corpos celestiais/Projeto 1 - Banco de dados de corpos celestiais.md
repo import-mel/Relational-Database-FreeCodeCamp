@@ -58,6 +58,8 @@ O desafio exige que você crie um banco de dados chamado `universe` e siga as 
 
 Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dados, levando em consideração as entidades celestiais e os relacionamentos entre elas. A modelagem dos dados é essencial nesse estágio, pois permite uma compreensão clara das interações e dependências dentro do sistema, garantindo que a base seja eficiente e escalável. A partir dessa modelagem, fui capaz de projetar as tabelas principais, detalhando suas colunas e as descrições correspondentes. A seguir, apresento uma visão geral de cada uma delas.
 
+> Para a criação do modelo lógico do banco de dados, utilizei a ferramenta dbdiagram.io. O resultado pode ser visualizado no arquivo [Modelo Lógico - Banco de Dados Universe.pdf](https://github.com/import-mel/Relational-Database-FreeCodeCamp/blob/main/Projetos/P1%20Banco%20de%20dados%20de%20corpos%20celestiais/Modelo%20Lo%CC%81gico%20-%20Banco%20de%20Dados%20Universe.pdf).
+
 ### Tabela `galaxy`
 
 | Coluna                 | Tipo              | Restrições        | Descrição                                           |
