@@ -6,7 +6,7 @@ CREATE DATABASE universe;
 
 CREATE TABLE galaxy(
     galaxy_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    galaxy_name VARCHAR(100) UNIQUE NOT NULL,
     galaxy_type TEXT NOT NULL,
     description_galaxy TEXT,
     distance_from_earth NUMERIC,
@@ -21,7 +21,7 @@ CREATE TABLE galaxy(
 CREATE TABLE star(
     star_id SERIAL PRIMARY KEY,
     galaxy_id INT NOT NULL,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    star_name VARCHAR(100) UNIQUE NOT NULL,
     star_type TEXT NOT NULL,
     spectral_type VARCHAR(10) NOT NULL,
     temperature_k NUMERIC(10, 2) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE star(
 CREATE TABLE planet(
     planet_id SERIAL PRIMARY KEY,
     star_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    planet_name VARCHAR(100) NOT NULL UNIQUE,
     orbital_period_days NUMERIC(10, 2) NOT NULL,
     is_exoplanet BOOLEAN,
     radius_km NUMERIC(12, 2) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE moon(
 CREATE TABLE nebula(
     nebula_id SERIAL PRIMARY KEY,
     galaxy_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    nebula_name VARCHAR(100) NOT NULL UNIQUE,
     nebula_type VARCHAR(50) NOT NULL,
     diameter_ly NUMERIC(10,2) NOT NULL,
     distance_ly NUMERIC(10,2) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE nebula(
 
 CREATE TABLE mission(
     mission_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    mission_name VARCHAR(100) UNIQUE NOT NULL,
     mission_type VARCHAR(100) NOT NULL,
     agency VARCHAR(100) NOT NULL,
     launch_date DATE NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE planet_mission(
     planet_mission_id SERIAL PRIMARY KEY,
     planet_id INT NOT NULL,
     mission_id INT NOT NULL,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    planet_mission_name VARCHAR(100) UNIQUE NOT NULL,
     mission_status VARCHAR(50) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE,
@@ -98,7 +98,7 @@ CREATE TABLE planet_mission(
     CONSTRAINT fk_planet_mission_mission_id FOREIGN KEY (mission_id) REFERENCES mission(mission_id)
 );
 
-INSERT INTO galaxy (name, galaxy_type, description_galaxy, distance_from_earth, diameter_kly, has_supernovae, has_nebula, mass_solar_galaxy, age_billion, discovery_year_galaxy) VALUES
+INSERT INTO galaxy (galaxy_name, galaxy_type, description_galaxy, distance_from_earth, diameter_kly, has_supernovae, has_nebula, mass_solar_galaxy, age_billion, discovery_year_galaxy) VALUES
 ('Via Láctea', 'Espiral', 'Nossa galáxia, contendo o Sistema Solar.', 0, 100.00, TRUE, TRUE, 1500000.00, 13, 0),
 ('Andrômeda (M31)', 'Espiral', 'Galáxia mais próxima da Via Láctea, em rota de colisão.', 2537, 220.00, TRUE, TRUE, 1200000.00, 10, 964),
 ('Galáxia do Triângulo (M33)', 'Espiral', 'Pequena galáxia espiral no Grupo Local.', 3000, 50.00, TRUE, TRUE, 50000.00, 10, 1654),
@@ -129,7 +129,7 @@ INSERT INTO galaxy (name, galaxy_type, description_galaxy, distance_from_earth, 
 ('Galáxia de Sculptor Dwarf', 'Elíptica', 'Galáxia anã esferoidal no Grupo Local.', 290, 3.00, FALSE, FALSE, 1000.00, 10, 1937),
 ('Galáxia de Tucana Dwarf', 'Elíptica', 'Galáxia anã esferoidal no Grupo Local.', 870, 4.00, FALSE, FALSE, 1500.00, 10, 1990);
 
-INSERT INTO star (galaxy_id, name, star_type, spectral_type, temperature_k, luminosity, mass_solar, main_sequence, rotation_period_days) VALUES
+INSERT INTO star (galaxy_id, star_name, star_type, spectral_type, temperature_k, luminosity, mass_solar, main_sequence, rotation_period_days) VALUES
 (1, 'Sol', 'Anã Amarela', 'G2V', 5778.00, 1.00, 1.00, TRUE, 25.38),
 (1, 'Sirius', 'Anã Branca', 'A1V', 9940.00, 25.40, 2.02, TRUE, 5.50),
 (1, 'Alpha Centauri A', 'Anã Amarela', 'G2V', 5790.00, 1.52, 1.10, TRUE, 22.00),
@@ -161,7 +161,7 @@ INSERT INTO star (galaxy_id, name, star_type, spectral_type, temperature_k, lumi
 (19, 'Alnitak', 'Supergigante Azul', 'O9.5Ib', 30000.00, 100000.00, 28.00, FALSE, 8.00),
 (20, 'Saiph', 'Supergigante Azul', 'B0.5Ia', 26000.00, 56000.00, 15.50, FALSE, 9.00);
 
-INSERT INTO planet (star_id, name, orbital_period_days, is_exoplanet, radius_km, gravity_m_s2, has_life, atmosphere, surface_temperature_c, discovery_year, distance_from_star_km) VALUES
+INSERT INTO planet (star_id, planet_name, orbital_period_days, is_exoplanet, radius_km, gravity_m_s2, has_life, atmosphere, surface_temperature_c, discovery_year, distance_from_star_km) VALUES
 (1, 'Mercúrio', 88.00, FALSE, 2439.70, 3.70, FALSE, 'CO2, N2', 167.00, 0, 57910000),
 (1, 'Vênus', 225.00, FALSE, 6051.80, 8.87, FALSE, 'CO2, N2', 462.00, 0, 108200000),
 (1, 'Terra', 365.25, FALSE, 6371.00, 9.81, TRUE, 'Nitrogênio, Oxigênio', 15.00, 0, 150000000),
@@ -200,7 +200,7 @@ INSERT INTO planet (star_id, name, orbital_period_days, is_exoplanet, radius_km,
 (29, 'Kepler-62c', 124.00, TRUE, 11300.00, 9.70, TRUE, 'O2, CO2', 25.00, 2013, 1200000000),
 (30, 'Kepler-7b', 4.98, TRUE, 13800.00, 19.20, FALSE, 'H2O, CO2', 1200.00, 2009, 1000000000);
 
-INSERT INTO moon (name, planet_id, radius_km, orbital_period_days, tidally_locked, composition_moon, distance_from_planet_km) VALUES
+INSERT INTO moon (moon_name, planet_id, radius_km, orbital_period_days, tidally_locked, composition_moon, distance_from_planet_km) VALUES
 ('Lua', 3, 1737.10, 27.32, TRUE, 'Rochosa', 384400.00),
 ('Fobos', 4, 11.00, 0.30, TRUE, 'Rochosa', 9377.00),
 ('Deimos', 4, 6.20, 1.26, TRUE, 'Rochosa', 23459.00),
@@ -222,7 +222,7 @@ INSERT INTO moon (name, planet_id, radius_km, orbital_period_days, tidally_locke
 ('Titania', 7, 788.40, 8.71, TRUE, 'Rochosa', 435800.00),
 ('Oberon', 7, 761.40, 13.46, TRUE, 'Rochosa', 583500.00);
 
-INSERT INTO nebula (galaxy_id, name, nebula_type, diameter_ly, distance_ly, luminosity, composition_nebula, discovery_year, location_nebula, photo_url) VALUES
+INSERT INTO nebula (galaxy_id, nebula_name, nebula_type, diameter_ly, distance_ly, luminosity, composition_nebula, discovery_year, location_nebula, photo_url) VALUES
 (1, 'Nebulosa de Órion', 'Emissão', 24.00, 1344.00, 100000.00, 'Hidrogênio, Hélio', 1610, 'Constelação de Órion', 'https://science.nasa.gov/wp-content/uploads/2023/04/orion-nebula-xlarge_web-jpg.webp'),
 (2, 'Nebulosa de Andrômeda', 'Emissão', 20.00, 2500000.00, 50000.00, 'Hidrogênio, Hélio', 2000, 'Constelação de Andrômeda', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Andromeda_Galaxy_%28with_h-alpha%29.jpg/800px-Andromeda_Galaxy_%28with_h-alpha%29.jpg'),
 (3, 'Nebulosa do Caranguejo', 'Restante', 11.00, 6500.00, 1300000.00, 'Hidrogênio, Oxigênio', 1054, 'Constelação de Touro', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Crab_Nebula.jpg/800px-Crab_Nebula.jpg'),
@@ -242,7 +242,7 @@ INSERT INTO nebula (galaxy_id, name, nebula_type, diameter_ly, distance_ly, lumi
 (19, 'Nebulosa de IC 1318', 'Emissão', 10.00, 3500.00, 75000.00, 'Hidrogênio, Oxigênio', 1905, 'Constelação de Cisne', 'https://spacetoday.com.br/wp-content/uploads/2021/03/nebulosa_borboleta_ic1318-scaled.jpg'),
 (20, 'Nebulosa de Sharpless 2-106', 'Emissão', 9.00, 4200.00, 200000.00, 'Hidrogênio', 1950, 'Constelação de Lira', 'https://svs.gsfc.nasa.gov/vis/a030000/a030600/a030682/s106-example_frame-1920x1080.jpg');
 
-INSERT INTO mission (name, mission_type, agency, launch_date, budget, description_mission) VALUES
+INSERT INTO mission (mission_name, mission_type, agency, launch_date, budget, description_mission) VALUES
 ('Mars Exploration Rover', 'Exploração Planetária', 'NASA', '2003-06-10', 800000000.00, 'Missão de exploração em Marte, focada na busca de sinais de água no passado e estudo da geologia do planeta.'),
 ('Apollo 11', 'Exploração Lunar', 'NASA', '1969-07-16', 500000000.00, 'Missão que levou o homem à Lua pela primeira vez.'),
 ('Juno', 'Exploração Planetária', 'NASA', '2011-08-05', 1100000000.00, 'Missão para estudar Júpiter e sua atmosfera.'),
@@ -264,7 +264,7 @@ INSERT INTO mission (name, mission_type, agency, launch_date, budget, descriptio
 ('OSIRIS-REx', 'Exploração Planetária', 'NASA', '2016-09-08', 800000000.00, 'Missão para coletar amostras de um asteroide e trazê-las de volta à Terra.'),
 ('Mars Odyssey', 'Exploração Planetária', 'NASA', '2001-04-07', 297000000.00, 'Missão para estudar Marte e atuar como um satélite de comunicação para outras missões.'); 
 
-INSERT INTO planet_mission (planet_id, mission_id, name, mission_status, start_date, end_date, results) VALUES
+INSERT INTO planet_mission (planet_id, mission_id, planet_mission_name, mission_status, start_date, end_date, results) VALUES
 (4, 1, 'Mars Rover Spirit', 'Concluída', '2004-01-04', '2010-03-22', 'Explorou a superfície de Marte e enviou imagens e dados sobre a composição do solo.'),
 (4, 2, 'Apollo 11 Moon Landing', 'Concluída', '1969-07-16', '1969-07-24', 'Primeira missão humana a pousar na Lua e coletar amostras.'),
 (5, 3, 'Juno Mission to Jupiter', 'Em andamento', '2011-08-05', NULL, 'Estudando Júpiter e suas atmosferas para entender melhor o sistema solar.'),

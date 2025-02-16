@@ -149,16 +149,16 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 
 ### Tabela junção `planet_mission`
 
-| Coluna                  | Tipo          | Restrições    | Descrição                                                                       |
-| ----------------------- | ------------- | ------------- | ------------------------------------------------------------------------------- |
-| **`planet_mission_id`** | `SERIAL`      | `PRIMARY KEY` | Identificador único do relacionamento.                                          |
-| **`planet_id`**         | `INT`         | `FOREIGN KEY` | Referência ao planeta na tabela `Planet`.                                       |
-| **`mission_id`**        | `INT`         | `FOREIGN KEY` | Referência à missão na tabela `Mission`.                                        |
-| **`mission_status`**    | `VARCHAR(50)` | `NOT NULL`    | Status da missão em relação ao planeta (ex: "ongoing", "completed", "aborted"). |
-| **`start_date`**        | `DATE`        | `NOT NULL`    | Data de início da missão para aquele planeta.                                   |
-| **`end_date`**          | `DATE`        |               | Data de término da missão para aquele planeta, se aplicável.                    |
-| **`results`**           | `TEXT`        |               | Resultados ou descobertas da missão em relação ao planeta.                      |
-
+| Coluna                  | Tipo           | Restrições          | Descrição                                                                       |
+| ----------------------- | -------------- | ------------------- | ------------------------------------------------------------------------------- |
+| **`planet_mission_id`** | `SERIAL`       | `PRIMARY KEY`       | Identificador único do relacionamento.                                          |
+| `planet_mission_name`   | `VARCHAR(100)` | `UNIQUE` `NOT NULL` | Nome atribuído à missão específica que envolve o planeta.                       |
+| **`planet_id`**         | `INT`          | `FOREIGN KEY`       | Referência ao planeta na tabela `Planet`.                                       |
+| **`mission_id`**        | `INT`          | `FOREIGN KEY`       | Referência à missão na tabela `Mission`.                                        |
+| **`mission_status`**    | `VARCHAR(50)`  | `NOT NULL`          | Status da missão em relação ao planeta (ex: "ongoing", "completed", "aborted"). |
+| **`start_date`**        | `DATE`         | `NOT NULL`          | Data de início da missão para aquele planeta.                                   |
+| **`end_date`**          | `DATE`         |                     | Data de término da missão para aquele planeta, se aplicável.                    |
+| **`results`**           | `TEXT`         |                     | Resultados ou descobertas da missão em relação ao planeta.                      |
 
 ### Relacionamento entre as Tabelas
 
