@@ -161,15 +161,15 @@ Como primeiro passo do desafio, organizei e planejei a estrutura do banco de dad
 
 Abaixo estão descritos os relacionamentos entre as tabelas, incluindo o tipo de associação entre elas:
 
-7. **Galaxy → Star: 1:N (um-para-muitos)** - Uma galáxia (`Galaxy`) pode conter **muitas estrelas** (`Star`), mas uma estrela pertence a **apenas uma galáxia**.
-8. **Star → Planet:** **1:N (um-para-muitos)** - Uma estrela (`Star`) pode ter **muitos planetas** (`Planet`), mas um planeta orbita **apenas uma estrela**.
-9. **Planet → Moon**: **1:N (um-para-muitos)** - Um planeta (`Planet`) pode ter **muitas luas** (`Moon`), mas uma lua orbita **apenas um planeta**.
+- **Galaxy → Star: 1:N (um-para-muitos)** - Uma galáxia (`Galaxy`) pode conter **muitas estrelas** (`Star`), mas uma estrela pertence a **apenas uma galáxia**.
+- **Star → Planet:** **1:N (um-para-muitos)** - Uma estrela (`Star`) pode ter **muitos planetas** (`Planet`), mas um planeta orbita **apenas uma estrela**.
+- **Planet → Moon**: **1:N (um-para-muitos)** - Um planeta (`Planet`) pode ter **muitas luas** (`Moon`), mas uma lua orbita **apenas um planeta**.
 
 
 Além dos relacionamentos propostos inicialmente no desafio, foram adicionados dois novos relacionamentos para expandir o modelo de dados:
 
-1. **Galaxy → Nebula**: **1:N (um-para-muitos)** - Uma galáxia (`Galaxy`) pode conter **muitas nebulosas** (`Nebula`), mas uma nebulosa está localizada em **apenas uma galáxia**
-2. **Planeta_Missão (N:N - muitos-para-muitos)**
+- **Galaxy → Nebula**: **1:N (um-para-muitos)** - Uma galáxia (`Galaxy`) pode conter **muitas nebulosas** (`Nebula`), mas uma nebulosa está localizada em **apenas uma galáxia**
+- **Planeta_Missão (N:N - muitos-para-muitos)**
 	- A tabela `Planet_Mission` é uma **tabela de junção** que estabelece um relacionamento muitos-para-muitos entre as tabelas `Planet` e `Mission`. Esse relacionamento foi criado para representar cenários complexos, como:
 	    - Uma missão pode explorar **múltiplos planetas** (por exemplo, uma missão interplanetária que visita Marte e Júpiter).
 	    - Um planeta pode ser alvo de **diversas missões** (por exemplo, Marte, que foi explorado por várias missões ao longo dos anos).
