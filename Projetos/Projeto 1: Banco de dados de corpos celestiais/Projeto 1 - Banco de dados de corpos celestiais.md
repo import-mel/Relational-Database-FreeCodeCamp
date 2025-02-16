@@ -172,7 +172,7 @@ Abaixo estão descritos os relacionamentos entre as tabelas, incluindo o tipo de
 Além dos relacionamentos propostos inicialmente no desafio, foram adicionados dois novos relacionamentos para expandir o modelo de dados:
 
 - **Galaxy → Nebula**: **1:N (um-para-muitos)** - Uma galáxia (`Galaxy`) pode conter **muitas nebulosas** (`Nebula`), mas uma nebulosa está localizada em **apenas uma galáxia**
-- **Planeta_Missão (N:N - muitos-para-muitos)**
+- **Planet_Mission (N:N - muitos-para-muitos)**
 	- A tabela `Planet_Mission` é uma **tabela de junção** que estabelece um relacionamento muitos-para-muitos entre as tabelas `Planet` e `Mission`. Esse relacionamento foi criado para representar cenários complexos, como:
 	    - Uma missão pode explorar **múltiplos planetas** (por exemplo, uma missão interplanetária que visita Marte e Júpiter).
 	    - Um planeta pode ser alvo de **diversas missões** (por exemplo, Marte, que foi explorado por várias missões ao longo dos anos).
@@ -184,8 +184,6 @@ Além dos relacionamentos propostos inicialmente no desafio, foram adicionados d
 Para executar este projeto no terminal interativo do `psql`, siga os passos abaixo para configurar o banco de dados e rodar os scripts SQL.
 
 ### 1. Pré-requisitos
-
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 
 - **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional utilizado neste projeto. [Instruções de instalação do PostgreSQL](https://www.postgresql.org/download/)
 - **Git**: Para clonar o repositório. [Instruções de instalação do Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
