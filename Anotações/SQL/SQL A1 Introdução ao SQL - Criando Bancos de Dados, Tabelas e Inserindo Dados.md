@@ -59,16 +59,19 @@ O curso foi projetado para que os comandos sejam executados diretamente no termi
 
 - **`ALTER DATABASE database_name ação`**: é usado para modificar as propriedades de um banco de dados existente, sendo útil quando é necessário (alguns exemplos):
 	- **`RENAME TO new_database_name`** (renomear o banco de dados).
+   
 	```sql
 	ALTER DATABASE first_database RENAME TO mario_database;
 	```
 
 	- **`OWNER TO new_database_owner`** (alterar o proprietário).
+   
 	```sql
 	ALTER DATABASE mario_database OWNER TO luigi;	
 	```
 	
 	- **`CONNECTION LIMIT limite`** (definir ou alterar configurações do banco, como definir um limite de conexões simultâneas).
+   
 	```sql
 	ALTER DATABASE minha_base CONNECTION LIMIT 50;
 	```
@@ -81,6 +84,7 @@ O curso foi projetado para que os comandos sejam executados diretamente no termi
 ### Criando e modificando tabelas
 
 - **`CREATE TABLE table_name();`**: é utilizado para criar uma nova tabela, porém utilizando ele dessa forma criamos a tabela mas não definimos nenhuma coluna ou estrutura, não sendo possível ainda adicionar dados a ela. Para criar uma tabela já definindo as colunas que ela irá ter inicialmente, podemos fazer da seguinte forma:
+  
 ```sql
 CREATE TABLE clientes (
 	id SERIAL PRIMARY KEY,
@@ -92,6 +96,7 @@ CREATE TABLE clientes (
 
 Caso a tabela seja criada sem colunas, podemos utilizar o **`ALTER TABLE`** para adiciona-las posteriormente.
 - **`ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINT`**: essa é a sintaxe utilizada para alterar uma tabela adicionando uma nova coluna a ela.
+  
 ```sql
 ALTER TABLE characters ADD COLUMN name VARCHAR(30) NOT NULL;
 ALTER TABLE more_info ADD COLUMN birthday DATE;
@@ -99,11 +104,13 @@ ALTER TABLE more_info ADD COLUMN birthday DATE;
 
 - **`ALTER TABLE table_name DROP COLUMN column_name;`**: utilizado para remover uma coluna de uma tabela, fazendo com que todos os dados armazenados sejam excluídos também.
 	- Caso a coluna tenha dependências ou esteja sendo referenciada por outros objetos no banco de dados, como ser chave estrangeira de alguma outra tabela, ao tentar executar o comando o PostgreSQL retornará um erro. Essas dependências precisarão ser removidas ou alteradas para conseguir excluir a coluna.
+   
 ```sql
 ALTER TABLE planet_mission DROP COLUMN planet_mission_name;
 ```
 
 - **`ALTER TABLE table_name RENAME COLUMN column_name TO new_name;`**: utilizado para alterar o nome de uma tabela
+  
 ```sql
 ALTER TABLE more_info RENAME COLUMN height TO height_in_cm;
 ```
@@ -111,6 +118,7 @@ ALTER TABLE more_info RENAME COLUMN height TO height_in_cm;
 - **`ALTER TABLE table_name DROP CONSTRAINT constraint_name;`**: é usado para remover uma **restrição (constraint)** de uma tabela existente. 
 	- As **restrições** são regras aplicadas às colunas ou à tabela para garantir a integridade dos dados, como chaves primárias, chaves estrangeiras, valores únicos (`UNIQUE`), verificações (`CHECK`), etc.
 	- Caso a chave primária tenha uma referência em outra tabela, será necessário remover essa relação primeiro antes de executar a remoção.
+   
 ```sql
 ALTER TABLE planet DROP CONSTRAINT fk_star_id;
 ```
@@ -155,6 +163,7 @@ Já as restrições são regras aplicadas às colunas ou tabelas para validar os
 	    - **`NULL`** (se a coluna permitir valores nulos).
 	    - Um **erro** será gerado se a coluna não permitir valores nulos e nenhum valor padrão for definido
 	- Se a tabela tiver uma coluna de chave primária com auto-incremento, você não precisa incluí-la no comando INSERT INTO.
+
 ```sql
 INSERT INTO characters(name, homeland, favorite_color) VALUES
 ('Mario', 'Mushroom Kingdom', 'Red'),
@@ -163,12 +172,14 @@ INSERT INTO characters(name, homeland, favorite_color) VALUES
 
 - **`UPDATE table_name SET column_name = new_value WHERE condition;`**: é usado para **modificar dados existentes** em uma tabela. Ele permite alterar os valores de uma ou mais colunas em registros que atendem a uma condição específica.
     - Apenas os registros que atendem a essa condição serão modificados. Se a cláusula `WHERE` não for incluida, **todos os registros da tabela serão atualizados.**
+      
 ```sql
 UPDATE characters SET favorite_color = 'Orange' WHERE name = 'Daisy';
 UPDATE characters SET name = 'Toad' WHERE favorite_color = 'Red';
 ```
 
 - **`DELETE FROM table_name WHERE condition;`**: é usado para remover registros (linhas) de uma tabela. Apenas os registros que atendem a essa condição serão removidos, se a cláusula `WHERE` não for incluída, **todos os registros da tabela serão excluídos.**
+  
 ```sql
 DELETE FROM second_table WHERE username = 'Luigi';
 ```
