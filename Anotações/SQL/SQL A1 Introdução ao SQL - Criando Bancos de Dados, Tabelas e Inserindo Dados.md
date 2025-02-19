@@ -130,14 +130,15 @@ Os **tipos de dados** definem o formato dos valores que podem ser armazenados 
 
 Neste módulo, vimos alguns dos tipos de dados mais utilizados em bancos de dados:
 
-1. **`INT`** (Integer): Usado para armazenar valores inteiros, tanto positivos quanto negativos. Comumente empregado em campos que representam quantidades (como a idade de uma pessoa) ou identificadores (como chaves primárias).
-2. **`VARCHAR(limite)`** (Variable Character): Armazena strings de caracteres com comprimento variável, até um limite definido. Ideal para campos de texto com um tamanho previsível, como nomes, endereços ou descrições.
-3. **`TEXT`**: Semelhante ao `VARCHAR`, mas sem limite máximo de comprimento. É utilizado para armazenar grandes blocos de texto, como descrições longas ou comentários. A principal diferença entre `TEXT` e `VARCHAR` é que o `TEXT` não requer a definição de um limite de caracteres, enquanto o `VARCHAR` exige especificar esse limite. No entanto, em termos de desempenho, as diferenças são pequenas, e ambos podem armazenar dados de tamanho variável.
-4. **`BOOLEAN`**: Armazena valores lógicos, representando **verdadeiro (TRUE = 1)** ou **falso (FALSE = 0)**
-5. **`SERIAL`**: Tipo de dado inteiro que é automaticamente incrementado a cada nova inserção. Frequentemente usado em colunas de chaves primárias.
-6. **`DATE`**: Destinado ao armazenamento de datas no formato `YYYY-MM-DD`.
-7. **`NUMERIC(p, e)`**: Permite armazenar números com precisão decimal, onde `p` define o número total de dígitos e `e` define a quantidade de dígitos à direita da vírgula decimal.
-    - **Exemplo**: `preco NUMERIC(10, 2)` - o número **10** indica o total de dígitos que podem ser armazenados, enquanto o **2** representa o número de dígitos após a vírgula. Isso permite armazenar valores como **12345678.99**, onde até **8 dígitos** podem estar antes da vírgula e **2 dígitos** após.
+| Tipo de Dado   | Descrição                                                                                     | Exemplo de Uso                                      |
+|----------------|---------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| **INT**        | Usado para armazenar valores inteiros, tanto positivos quanto negativos. Geralmente utilizado em campos que representam quantidades (como a idade de uma pessoa) ou identificadores (como chaves primárias). | `ALTER TABLE table_name ADD COLUMN idade INT`                                         |
+| **VARCHAR(n)** | Armazena strings de caracteres com comprimento variável, até um limite definido. Ideal para campos de texto com um tamanho previsível, como nomes, endereços ou descrições. | `ALTER TABLE table_name ADD COLUMN nome VARCHAR(50)`                                  |
+| **TEXT**       | Semelhante ao VARCHAR, mas sem limite máximo de comprimento. Utilizado para armazenar grandes blocos de texto, como descrições longas ou comentários. A principal diferença entre TEXT e VARCHAR é que o TEXT não requer a definição de um limite de caracteres, enquanto o VARCHAR exige especificar esse limite. | `ALTER TABLE table_name ADD COLUMN descricao TEXT`                                    |
+| **BOOLEAN**    | Armazena valores lógicos, representando verdadeiro (`TRUE` = 1) ou falso (`FALSE` = 0).       | `ALTER TABLE table_name ADD COLUMN ativo BOOLEAN`                                     |
+| **SERIAL**     | Tipo de dado inteiro que é automaticamente incrementado a cada nova inserção. Frequentemente usado em colunas de chaves primárias. | `ALTER TABLE table_name ADD COLUMN id SERIAL PRIMARY KEY`                             |
+| **DATE**       | Destinado ao armazenamento de datas no formato `YYYY-MM-DD`.                                 | `ALTER TABLE table_name ADD COLUMN data_nascimento DATE`                              |
+| **NUMERIC(p,e)**| Permite armazenar números com precisão decimal, onde `p` define o número total de dígitos e `e` define a quantidade de dígitos à direita da vírgula decimal. Exemplo: `preco NUMERIC(10, 2)` - o número 10 indica o total de dígitos que podem ser armazenados, enquanto o 2 representa o número de dígitos após a vírgula. Isso permite armazenar valores como `12345678.99`, onde até 8 dígitos podem estar antes da vírgula e 2 dígitos após. | `ALTER TABLE table_name ADD COLUMN preco NUMERIC(10, 2)`                              |
 
 Já as restrições são regras aplicadas às colunas ou tabelas para validar os dados inseridos, evitando entradas incorretas ou inválidas. Por exemplo:
 
